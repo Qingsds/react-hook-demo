@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useFetch } from './hook'
 
 function SearchPanel({ setKey }: { setKey: (value: string) => void }) {
     const inputRef = useRef<null | HTMLInputElement>(null)
@@ -28,21 +29,16 @@ function List({ data }: { data: any[] }) {
 }
 
 const targetUrl = 'https://hn.algolia.com/api/v1/search'
-function Index() {
-    const [queryKey, setKey] = useState<string | null>('react')
-
-    let data
-    const getDta = async () => {
-        const res = await window.fetch(`${targetUrl}?${queryKey}`)
-        return await res.json()
-    }
-
+export default function Index() {
+    const [state, setUrl] = useFetch(targetUrl)
+    const [key, setKey] = useState('')
     useEffect(() => {
-        const getDta = async () => {
-            const res = await window.fetch(`${targetUrl}?${queryKey}`)
-            return await res.json()
-        }
-        getDta()
-    },[])
-    return <div></div>
+        setUrl(url => `${targetUrl}?${key || ''}`)
+    }, [key, setUrl])
+    return (
+        <div>
+            <SearchPanel setKey={setKey} />
+            <List data={state.data.hits || []} />
+        </div>
+    )
 }

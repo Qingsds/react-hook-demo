@@ -1,17 +1,11 @@
 import './App.css'
+import Index from './components/mockList/mockList'
+
 
 const App = () => {
-    const len = 30000
-
-    return (
-        <ul>
-            {Array(len)
-                .fill(0)
-                .map((_, i) => (
-                    <li key={i}>{i}</li>
-                ))}
-        </ul>
-    )
+   return <div>
+       <Index />
+   </div>
 }
 
 export default App
