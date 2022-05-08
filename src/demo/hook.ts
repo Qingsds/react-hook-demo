@@ -1,5 +1,5 @@
 /**
- * @description 处理网络请求
+ * @description hooks
  * @author qingsds
  */
 
@@ -7,23 +7,29 @@ import { Reducer, useEffect, useReducer, useState } from 'react'
 interface State {
     data: any | null
     isLoading: boolean
-    success: boolean
+    error: boolean
+    message?: string | null
 }
 
 type Status = 'FETCH_INIT' | 'FETCH_SUCCESS' | 'FETCH_FAILURE'
 
-const fetchReducer: Reducer<
+export const fetchReducer: Reducer<
     State,
     { type: Status; payload?: Partial<State> }
 > = (state, action): State => {
     const { type, payload } = action
     switch (type) {
         case 'FETCH_INIT':
-            return { ...state, isLoading: true, success: false }
+            return { ...state, isLoading: true, error: false }
         case 'FETCH_SUCCESS':
-            return { ...state, isLoading: false, success: true, data: payload }
+            return { ...state, isLoading: false, error: true, data: payload }
         case 'FETCH_FAILURE':
-            return { ...state, isLoading: false, success: false }
+            return {
+                ...state,
+                isLoading: false,
+                error: true,
+                message: payload?.message,
+            }
         default:
             return state
     }
@@ -34,7 +40,7 @@ export const useFetch = (url: string) => {
     const [state, dispatch] = useReducer(fetchReducer, {
         data: null,
         isLoading: false,
-        success: false,
+        error: false,
     })
 
     useEffect(() => {
@@ -52,7 +58,12 @@ export const useFetch = (url: string) => {
                 }
             } catch (error) {
                 if (!didCancel) {
-                    dispatch({ type: 'FETCH_FAILURE' })
+                    dispatch({
+                        type: 'FETCH_FAILURE',
+                        payload: {
+                            message: (error as Error).message,
+                        },
+                    })
                 }
             }
         }

@@ -1,5 +1,6 @@
 import './App.css'
-import Index from './components/mockList/mockList'
+import Index from './demo'
+
 
 
 const App = () => {

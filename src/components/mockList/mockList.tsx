@@ -1,14 +1,27 @@
-import { useEffect, useRef, useState } from 'react'
+/**
+ * @description 受控组件
+ * @author qingsds
+ */
+
+import { useState } from 'react'
 import { useFetch } from './hook'
 
-function SearchPanel({ setKey }: { setKey: (value: string) => void }) {
-    const inputRef = useRef<null | HTMLInputElement>(null)
+const targetUrl = 'https://hn.algolia.com/api/v1/search?query='
+
+function SearchPanel({ setUrl }: { setUrl: (value: string) => void }) {
+    const [query, setQuery] = useState<string>()
+
+    const handleSubmit = () => {
+        setUrl(targetUrl + `${query}`)
+    }
     return (
-        <form>
-            <input type='text' ref={inputRef} />
-            <button onClick={() => setKey(inputRef.current!.value)}>
-                search
-            </button>
+        <form onSubmit={e => e.preventDefault()}>
+            <input
+                type='text'
+                value={query || ''}
+                onChange={e => setQuery(e.target.value)}
+            />
+            <button onClick={handleSubmit}>search</button>
         </form>
     )
 }
@@ -28,17 +41,17 @@ function List({ data }: { data: any[] }) {
     )
 }
 
-const targetUrl = 'https://hn.algolia.com/api/v1/search'
 export default function Index() {
     const [state, setUrl] = useFetch(targetUrl)
-    const [key, setKey] = useState('')
-    useEffect(() => {
-        setUrl(url => `${targetUrl}?${key || ''}`)
-    }, [key, setUrl])
+
     return (
         <div>
-            <SearchPanel setKey={setKey} />
-            <List data={state.data.hits || []} />
+            <SearchPanel setUrl={setUrl} />
+            {state.isLoading ? (
+                <p>loading....</p>
+            ) : (
+                <List data={state.data?.hits || []} />
+            )}
         </div>
     )
 }
