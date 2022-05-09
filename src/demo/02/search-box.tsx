@@ -1,6 +1,6 @@
 import { Input } from 'antd'
-import { ChangeEvent, useCallback, useMemo, useState } from 'react'
-import { useSearchParam } from 'react-use'
+import { useMemo, useState } from 'react'
+// import { useSearchParam } from 'react-use'
 import { MOCK_DATA } from '../mock/mock-data'
 
 /**
@@ -21,13 +21,13 @@ const SearchBox = ({ data }: { data: Data[] }) => {
         })
     }, [searchKey, data])
 
-    const handleSearch = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+    /*     const handleSearch = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         window.history.pushState(
             {},
             '',
             `${window.location.pathname}?key=${evt.target.value}`
         )
-    }, [])
+    }, []) */
 
     return (
         <div className='08-filter-list'>

@@ -1,6 +1,6 @@
 import { Popover } from 'antd'
 import { ReactElement } from 'react'
-import {  MOCK_DATA_2 } from '../mock/mock-data'
+import { MOCK_DATA_2 } from '../mock/mock-data'
 
 interface Data {
     id: string

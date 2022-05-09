@@ -29,7 +29,7 @@ function SearchPanel({ setUrl }: { setUrl: (value: string) => void }) {
 function List({ data }: { data: any[] }) {
     return (
         <div>
-            {data.map((value: any, index) => {
+            {data.map((value: any) => {
                 const { objectID, title, url } = value
                 return (
                     <li key={objectID}>

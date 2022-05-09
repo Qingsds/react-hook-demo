@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@ant-design/icons": "^4.7.0",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.1.1",
         "@testing-library/user-event": "^13.5.0",
@@ -11,6 +12,7 @@
         "@types/react": "^18.0.5",
         "@types/react-dom": "^18.0.1",
         "antd": "^4.19.5",
+        "antd-form-builder": "^2.1.4",
         "axios": "^0.27.2",
         "faker": "^6.6.6",
         "lodash": "^4.17.21",
@@ -52,6 +54,7 @@
     "devDependencies": {
         "@types/lodash": "^4.14.182",
         "@types/react-router": "^5.1.18",
+        "@types/react-router-dom": "^5.3.3",
         "eslint-plugin-react-hooks": "^4.5.0"
     }
 }
