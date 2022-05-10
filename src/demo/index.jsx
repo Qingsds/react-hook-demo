@@ -18,9 +18,11 @@ import UserList2 from './02/user-list2'
 import KeyPressExample from './02/key-press-example'
 import FormComponent from './02/form-component'
 import UserLayout from './03/user-layout'
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
+import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom'
 import myRouter from './04/my-router'
 import NestedRouting from './04/nested-routing'
+import tabPages from './04/tab-pages'
+import routerAuth from './04/router-auth'
 
 const routes = [
     ['01 Counter', Counter],
@@ -40,6 +42,8 @@ const routes = [
     ['05 UserLayout', UserLayout],
     ['06 myRouter', myRouter],
     ['06 NestedRouting', NestedRouting],
+    ['06 tabPages', tabPages],
+    ['06 routerAuth', routerAuth],
 ]
 
 const Empty = () => null
@@ -47,7 +51,7 @@ export default function Index() {
     return (
         <Router>
             <div className='app'>
-                <Empty />
+                <Empty/>
                 <ul className='sider'>
                     {routes.map((item, index) => (
                         <li key={index}>
@@ -68,7 +72,7 @@ export default function Index() {
                                         '/'
                                     )}${additionalRoute}`}
                                 >
-                                    <Component />
+                                    <Component/>
                                 </Route>
                             )
                         )}
